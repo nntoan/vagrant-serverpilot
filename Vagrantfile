@@ -43,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       # Name of machine
-      vbox.name = settings['vbox']['name'] ||= 'demobox2'
+      vbox.name = settings['vbox']['name'] ||= 'vagrant-serverpilot'
       # To debug only
       vbox.gui = settings['vbox']['debug'] ||= false
 
@@ -77,6 +77,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # If you are going to add more opts, ensure " \
     # after the last opt, e.g -x #{settings['hello']['world']}" \
     # and the args must be 1 letter, because we're using getopts
+    # (optional): if you'd like to see progress of tasks during
+    # provisioning, use bootstrap.adv.sh instead
     config.vm.provision "shell", path: "scripts/bootstrap.sh",
     args: "-i #{settings['serverpilot']['server_id']} \
            -k #{settings['serverpilot']['api_key']} \

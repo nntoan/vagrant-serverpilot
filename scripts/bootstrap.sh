@@ -35,24 +35,8 @@ sp_sudoers="/etc/sudoers.d/$sp_user"
 sp_agentlog="/var/log/serverpilot/agent.log"
 sp_installer="serverpilot-installer"
 
-spinner()
-{
-  local pid=$1
-  local delay=0.75
-  local spinstr='|/-\'
-  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-    local temp=${spinstr#?}
-    printf " [%c]  " "$spinstr"
-    local spinstr=$temp${spinstr%"$temp"}
-    sleep $delay
-    printf "\b\b\b\b\b\b"
-  done
-  printf "    \b\b\b\b"
-}
-
 sp_tweak()
 {
-  sudo killall tail &>/dev/null
   sudo cp /root/.my.cnf "$sp_homedir"/.my.cnf &>/dev/null
   sudo chown $sp_user:$sp_user "$sp_homedir"/.my.cnf &>/dev/null
   sudo cp "$homedir"/.ssh/authorized_keys "$sp_homedir"/.ssh/authorized_keys &>/dev/null
@@ -88,18 +72,18 @@ if [[ -f "$sp_agentlog" && ! -f "$homedir"/.sp_assume_ins && ! -f "$homedir"/.sp
   echo "Resume installing ServerPilot packages..."
   echo "Please be patient..."
   echo
-  ( sudo tail -f "$sp_agentlog" & ) | grep -q "ACTION INFO: Performing action: enable_ssh_password_auth" && echo "$(date +%s)" > "$homedir"/.sp_assume_ins
+  sudo tail -f "$sp_agentlog" | awk '/ACTION INFO: Performing action: enable_ssh_password_auth/{ system("sudo pkill tail"); exit; }'
+  echo "$(date +%s)" > "$homedir"/.sp_assume_ins
   sudo chown $user:$user "$homedir"/.sp_assume_ins
 fi
 
 if [[ -f "$homedir"/.sp_assume_ins && ! -f "$homedir"/.sp_done ]]; then
   sp_homedir=$(getent passwd $sp_user | cut -d ':' -f6)
-  ( sp_tweak ) &
   echo "Start tweaking some configs for your ServerPilot bundle..."
-  spinner $!
-  echo " OK"
+  sp_tweak
   echo "$(date +%s)" > "$homedir"/.sp_done
   sudo chown $user:$user "$homedir"/.sp_done
+  echo
   echo "********************************************************************************"
   echo
   echo "Your balance-vagrant is ready! Log in with: "
