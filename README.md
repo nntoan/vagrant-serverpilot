@@ -26,7 +26,7 @@ $ vagrant ssh
     * `Hostname` => `Anything you want`
     * `SFTP Password` => `Choose a password`
     * `Enable SSH password authentication if it's current disabled` (uncheck if you don't want to use password)
-![new-server](screenshots/new-server.png)
+![create-new-server](screenshots/create-new-server.png)
 
   * Copy server-id and server-api-key in the command ServerPilot generated into `settings.yml`
 ![connect-server](screenshots/connect-server.png)
