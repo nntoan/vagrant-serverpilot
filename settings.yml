@@ -1,0 +1,38 @@
+vagrant:
+  box: "ubuntu/xenial64" # ServerPilot supports xenial64 and trusty64 only
+  box_url: "http://10.0.1.250/vagrant/ubuntu/xenial64/catalog.json" # Remove, comment this line if you are home
+  sync:
+    enabled: false # Sorry, I didn't support this feature,
+    path: "." # Don't ask me for support this, thank you.
+  ssh:
+    username: "serverpilot"
+vbox:
+  name: "nntoan_dev_machine" # Set name for your vagrant box
+  res_auto: true # Don't touch this unless you know what you're doing
+  # If you are using Windows folks or don't want to use res_auto, uncomment two lines below
+  #vcpu: 2
+  #ram: 1024
+  # To troubleshooting why your virtualbox cannot start, uncomment the line below
+  #debug: true
+network:
+  private:
+    enabled: false # If you want to use private ip, set this to true
+    ip_addr: "23.9.19.93" # Your private ip address
+  public:
+    enabled: false # If you want to use public ip, set this to true
+    ip_addr: "10.0.1.93" # Your public ip address (Your LAN IP, must be static and never conflict)
+    bridge: "en0: Ethernet" # Your network card name, check by ifconfig or ipconfig
+  ports: # There is a loop over this section to setup forwarded port for your Vagrant box
+    - guest: 80 # Your vagrant port you want to forward
+      host: 8080 # Your machine port will be forwarded (must be free)
+    - guest: 3306
+      host: 3307
+    # Always keep - in the beginning of any new "guest" you add in the future below
+serverpilot:
+  server_id: "your_server_id" # server_id you get from ServerPilot.io
+  api_key: "your_api_key" # api_key you get from ServerPilot.io
+  sudo: true # Allow serverpilot use can run sudo commands without entering passwd
+  php: "7.0" # Set default PHP-CLI version, e.g: 5.4, 5.5, 5.6, 7.0, 7.1
+shell: # WIP - not working, don't know why, tty I guess (!?), wont fix obviously
+  ohmybash: false # Bash framework for geeks
+  ohmyzsh: false # Zsh framework for advanced geeks
