@@ -77,9 +77,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # If you are going to add more opts, ensure " \
     # after the last opt, e.g -x #{settings['hello']['world']}" \
     # and the args must be 1 letter, because we're using getopts
-    # (optional): if you'd like to see progress of tasks during
-    # provisioning, use bootstrap.adv.sh instead
-    config.vm.provision "shell", path: "scripts/bootstrap.sh",
+    # (optional): if you don't want to see a lot of command output
+    # while provisioning, change mode to "simple" instead of "verbose"
+    config.vm.provision "shell", path: "scripts/bootstrap.#{settings['vagrant']['provision']['mode']}.sh",
     args: "-i #{settings['serverpilot']['server_id']} \
            -k #{settings['serverpilot']['api_key']} \
            -s #{settings['serverpilot']['sudo']} \

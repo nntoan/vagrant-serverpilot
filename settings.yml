@@ -6,6 +6,8 @@ vagrant:
     path: "." # Don't ask me for support this, thank you.
   ssh:
     username: "serverpilot"
+  provision:
+    mode: "verbose" # Change to simple if you don't want to see a lot of output
 vbox:
   name: "nntoan_dev_machine" # Set name for your vagrant box
   res_auto: true # Don't touch this unless you know what you're doing
