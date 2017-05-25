@@ -9,7 +9,7 @@ VAGRANTFILE_API_VERSION = "2"
 # Path to settings file
 SETTINGS_FILE = "settings.yml"
 
-# Load the settings file with fucking absolute path for the greater good
+# Load the settings file with fucking absolute path for greater good
 settings = YAML.load_file(File.join(File.dirname(__FILE__), SETTINGS_FILE))
 
 # Function to check whether VM was already provisioned
@@ -42,7 +42,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.network "public_network", bridge: settings['network']['public']['bridge'], ip: settings['network']['public']['ip_addr']
       end
 
-      # Name of machine
+      # Hostname/Name of machine
+      vbox.hostname = settings['vbox']['hostname'] ||= nil
       vbox.name = settings['vbox']['name'] ||= 'vagrant-serverpilot'
       # To debug only
       vbox.gui = settings['vbox']['debug'] ||= false

@@ -10,6 +10,7 @@ vagrant:
     mode: "verbose" # Change to simple if you don't want to see a lot of output
 vbox:
   name: "nntoan_dev_machine" # Set name for your vagrant box
+  hostname: "nntoan.demo" # Hostname on your guest OS (recommend to set as FQDN)
   res_auto: true # Don't touch this unless you know what you're doing
   # If you are using Windows folks or don't want to use res_auto, uncomment two lines below
   #vcpu: 2
@@ -25,11 +26,15 @@ network:
     ip_addr: "10.0.1.93" # Your public ip address (Your LAN IP, must be static and never conflict)
     bridge: "en0: Ethernet" # Your network card name, check the name by: vboxmanage list bridgedifs
   ports: # There is a loop over this section to setup forwarded port for your Vagrant box
-    - guest: 80 # Your vagrant port you want to forward
-      host: 8080 # Your machine port will be forwarded (must be free)
+  # NOTE: if your private -> enabled set to FALSE, then you're going to use NAT also mean you can access
+  # http://localhost:<port> directly from your browser, which pretty cool in some scenarios
+  # you can't forwarding port lesser or equals 1024, most of operating system restricted this.
+  # if you need to bind host's port to something <= 1024, you must use private network
+    - guest: 80 # Your VM port you want to forwarding
+      host: 8080 # Your machine port which will be bind to (must be free, so obvious)
     - guest: 3306
       host: 3307
-    # Always keep - in the beginning of any new "guest" you add in the future below
+    # Always keep "-" in the beginning of any new "guest" you add in the future below this line
 serverpilot:
   server_id: "your_server_id" # server_id you get from ServerPilot.io
   api_key: "your_api_key" # api_key you get from ServerPilot.io
