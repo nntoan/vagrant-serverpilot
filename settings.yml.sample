@@ -23,7 +23,7 @@ network:
   public:
     enabled: false # If you want to use public ip, set this to true
     ip_addr: "10.0.1.93" # Your public ip address (Your LAN IP, must be static and never conflict)
-    bridge: "en0: Ethernet" # Your network card name, check by ifconfig or ipconfig
+    bridge: "en0: Ethernet" # Your network card name, check the name by: vboxmanage list bridgedifs
   ports: # There is a loop over this section to setup forwarded port for your Vagrant box
     - guest: 80 # Your vagrant port you want to forward
       host: 8080 # Your machine port will be forwarded (must be free)
@@ -35,6 +35,6 @@ serverpilot:
   api_key: "your_api_key" # api_key you get from ServerPilot.io
   sudo: false # Allow serverpilot use can run sudo commands without entering passwd
   php: "7.0" # Set default PHP-CLI version, e.g: 5.4, 5.5, 5.6, 7.0, 7.1
-shell: # WIP - not working, don't know why, tty I guess (!?), wont fix obviously
+shell: # WIP - not working, don't know why, tty and set -e I guess (!?), wont fix obviously
   ohmybash: false # Bash framework for geeks
   ohmyzsh: false # Zsh framework for advanced geeks
