@@ -12,7 +12,7 @@ You will be able to setup as many domain as you want. And a better, faster stack
   * [Virtualbox](https://www.virtualbox.org/) 5.0 or greater.
   * [Vagrant](http://downloads.vagrantup.com/) 1.8.3 or greater.
 2. Clone this [repository](https://github.com/nntoan/vagrant-serverpilot)
-3. Change the settings in [settings.yml](https://github.com/nntoan/vagrant-serverpilot/blob/master/settings.yml) to fit your needs (before go to step 4, check [this]() first)
+3. Change the settings in [settings.yml](https://github.com/nntoan/vagrant-serverpilot/blob/master/settings.yml) to fit your needs
 4. Execute the following commands to setup the virtual machine : (check [this](https://github.com/nntoan/vagrant-serverpilot#connecting-to-serverpilot) before execute commands below)
 ```bash
 $ vagrant up
