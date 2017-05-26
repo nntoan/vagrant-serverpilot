@@ -43,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       # Hostname/Name of machine
-      vbox.hostname = settings['vbox']['hostname'] ||= nil
+      #vbox.hostname = settings['vbox']['hostname'] ||= nil
       vbox.name = settings['vbox']['name'] ||= 'vagrant-serverpilot'
       # To debug only
       vbox.gui = settings['vbox']['debug'] ||= false
